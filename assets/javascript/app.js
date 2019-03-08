@@ -8,4 +8,25 @@ var config = {
     messagingSenderId: "815253003341"
 };
 firebase.initializeApp(config);
-// ==============================================
+// ==========================================================//
+
+var database = firebase.database();
+
+// When user's clicks button to add a new train
+$("#add-train").on("click", function (event) {
+    // prevents page refresh!
+    event.preventDefault();
+
+    // Getting user's input
+    var trainNameInput = $("#train-name").val().trim();
+    var destinationInput = $("#destination").val().trim();
+    var firstTrainTimeInput = $("#first-train-time").val().trim();
+    var frequencyInput = $("#frequency").val().trim();
+    console.log("==========================");
+    console.log("New train added:");
+    console.log(trainNameInput);
+    console.log(destinationInput);
+    console.log(firstTrainTimeInput);
+    console.log(frequencyInput);
+    console.log("==========================");
+});
