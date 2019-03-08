@@ -55,22 +55,22 @@ database.ref("/Train Data").on("child_added", function(trainSnapshot) {
 
     var trainNameOutput =  trainSnapshot.val().trainName;
     var destinationOutput = trainSnapshot.val().destination;
-    var firstTrainTimeOutput = trainSnapshot.val().firstTrainTime;
+    var nextArrivalOutput = trainSnapshot.val().firstTrainTime;
     var frequencyOutput = trainSnapshot.val().frequency;
 
     console.log("==========================");
     console.log("New train added:");
     console.log(trainNameOutput);
     console.log(destinationOutput);
-    console.log(firstTrainTimeOutput);
+    console.log(nextArrivalOutput);
     console.log(frequencyOutput);
     console.log("==========================");
 
     var newRow = $("<tr>").append(
         $("<td>").text(trainNameOutput),
         $("<td>").text(destinationOutput),
-        $("<td>").text(firstTrainTimeOutput),
-        $("<td>").text(frequencyOutput)
+        $("<td>").text(frequencyOutput),
+        $("<td>").text(nextArrivalOutput)
     )
 
     $("tbody").append(newRow);
