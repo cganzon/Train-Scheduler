@@ -22,11 +22,29 @@ $("#add-train").on("click", function (event) {
     var destinationInput = $("#destination").val().trim();
     var firstTrainTimeInput = $("#first-train-time").val().trim();
     var frequencyInput = $("#frequency").val().trim();
+
+    // Object to hold new train data
+    var newTrain = {
+        trainName: trainNameInput,
+        destination: destinationInput,
+        firstTrainTime: firstTrainTimeInput,
+        frequency: frequencyInput
+    }
+
+    // Uploading to firebase
+    database.ref("/Train Data").push(newTrain);
+
     console.log("==========================");
     console.log("New train added:");
-    console.log(trainNameInput);
-    console.log(destinationInput);
-    console.log(firstTrainTimeInput);
-    console.log(frequencyInput);
+    console.log(newTrain.trainName);
+    console.log(newTrain.destination);
+    console.log(newTrain.firstTrainTime);
+    console.log(newTrain.frequency);
     console.log("==========================");
+
+    // Empyting input fields
+    trainNameInput = $("#train-name").val("");
+    destinationInput = $("#destination").val("");
+    firstTrainTimeInput = $("#first-train-time").val("");
+    frequencyInput = $("#frequency").val("");
 });
