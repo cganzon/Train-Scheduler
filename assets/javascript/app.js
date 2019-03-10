@@ -70,7 +70,7 @@ database.ref("/Train Data").on("child_added", function(trainSnapshot) {
 	var nextTrainArrival = moment(nextTrain).format("hh:mm a");
 
     console.log("==========================");
-    console.log("<stron>New Train Info</strong>");
+    console.log("New Train Info:");
     console.log("Name: " + trainNameOutput);
     console.log("Destination: " + destinationOutput);
     console.log("First Train Time: " + firstTrainTimeOutput);
