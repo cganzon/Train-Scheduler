@@ -43,34 +43,47 @@ $("#add-train").on("click", function (event) {
     // console.log("==========================");
 
     // Emptying input fields after data is stored
-    trainNameInput = $("#train-name").val("");
-    destinationInput = $("#destination").val("");
-    firstTrainTimeInput = $("#first-train-time").val("");
-    frequencyInput = $("#frequency").val("");
+    $("#train-name").val("");
+    $("#destination").val("");
+    $("#first-train-time").val("");
+    $("#frequency").val("");
 });
 
 // Every time a new train is added to the database
 database.ref("/Train Data").on("child_added", function(trainSnapshot) {
-    console.log(trainSnapshot.val());
-
+    // console.log(trainSnapshot.val());
     var trainNameOutput =  trainSnapshot.val().trainName;
     var destinationOutput = trainSnapshot.val().destination;
-    var nextArrivalOutput = trainSnapshot.val().firstTrainTime;
+    var firstTrainTimeOutput = trainSnapshot.val().firstTrainTime;
     var frequencyOutput = trainSnapshot.val().frequency;
+    // Converting time input to 12 hour
+    var firstTrainTimeCivilian = moment(firstTrainTimeOutput, "hh:mm");
+    // Current Time
+	var currentTime = moment();
+	// Difference between the times
+	var timeDifference = moment().diff(moment(firstTrainTimeCivilian), "minutes");
+	var timeRemaining = timeDifference % frequencyOutput;
+	// Minutes away
+	var minutesAway = frequencyOutput - timeRemaining;
+    // Next train time 
+	var nextTrain = moment().add(minutesAway, "minutes");
+	var nextTrainArrival = moment(nextTrain).format("hh:mm a");
 
     console.log("==========================");
-    console.log("New train added:");
-    console.log(trainNameOutput);
-    console.log(destinationOutput);
-    console.log(nextArrivalOutput);
-    console.log(frequencyOutput);
+    console.log("<stron>New Train Info</strong>");
+    console.log("Name: " + trainNameOutput);
+    console.log("Destination: " + destinationOutput);
+    console.log("Frequency: " + frequencyOutput);
+    console.log("Next Arrival: " + nextTrainArrival);
+    console.log("Minutes Away: " + minutesAway);
     console.log("==========================");
 
     var newRow = $("<tr>").append(
         $("<td>").text(trainNameOutput),
         $("<td>").text(destinationOutput),
         $("<td>").text(frequencyOutput),
-        $("<td>").text(nextArrivalOutput)
+        $("<td>").text(nextTrainArrival),
+        $("<td>").text(minutesAway)
     )
 
     $("tbody").append(newRow);
