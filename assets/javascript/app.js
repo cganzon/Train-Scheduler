@@ -73,6 +73,7 @@ database.ref("/Train Data").on("child_added", function(trainSnapshot) {
     console.log("<stron>New Train Info</strong>");
     console.log("Name: " + trainNameOutput);
     console.log("Destination: " + destinationOutput);
+    console.log("First Train Time: " + firstTrainTimeOutput);
     console.log("Frequency: " + frequencyOutput);
     console.log("Next Arrival: " + nextTrainArrival);
     console.log("Minutes Away: " + minutesAway);
@@ -81,6 +82,7 @@ database.ref("/Train Data").on("child_added", function(trainSnapshot) {
     var newRow = $("<tr>").append(
         $("<td>").text(trainNameOutput),
         $("<td>").text(destinationOutput),
+        $("<td>").text(firstTrainTimeOutput),
         $("<td>").text(frequencyOutput),
         $("<td>").text(nextTrainArrival),
         $("<td>").text(minutesAway)
